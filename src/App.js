@@ -1,7 +1,15 @@
 import "./App.css";
 import LandingPage from "./pages/LandingPage";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/common/Layout/Layout";
+import VideosPage from "./pages/VideosPage";
+import SignupPage from "./pages/SignupPage";
+import LoginPage from "./pages/LoginPage";
+import GuidesPage from "./pages/GuidesPage";
+import ToursPage from "./pages/ToursPage";
+import VideoPage from "./pages/VideoPage";
+import TourPage from "./pages/TourPage";
+import { tourData } from "./data/TourData";
 
 function App() {
   return (
@@ -9,6 +17,26 @@ function App() {
       <Layout className="h-full">
         <Routes className="h-full">
           <Route className="h-full" path="/" element={<LandingPage />} />
+          <Route className="h-full" path="/videos" element={<VideosPage />} />
+          <Route className="h-full" path="/signup" element={<SignupPage />} />
+          <Route className="h-full" path="/login" element={<LoginPage />} />
+          <Route className="h-full" path="/tours" element={<ToursPage />} />
+          <Route className="h-full" path="/guides" element={<GuidesPage />} />
+          <Route className="h-full" path="/tours/tour" element={<TourPage />} />
+
+          <Route
+            className="h-full"
+            path="/videos/video"
+            element={<VideoPage />}
+          />
+
+          <Route
+            path="/videos/video/tours/tour"
+            element={<Navigate replace to="/tours/tour" />}
+          />
+          <Route path="/login/redirect" element={<Navigate replace to="/" />} />
+          <Route path="/signup/redirect" element={<Navigate replace to="/" />} />
+
         </Routes>
       </Layout>
     </BrowserRouter>
@@ -16,3 +44,4 @@ function App() {
 }
 
 export default App;
+
