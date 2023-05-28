@@ -5,10 +5,10 @@ import Layout from "./components/common/Layout/Layout";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
+    <BrowserRouter className="h-full">
+      <Layout className="h-full">
+        <Routes className="h-full">
+          <Route className="h-full" path="/" element={<LandingPage />} />
         </Routes>
       </Layout>
     </BrowserRouter>
