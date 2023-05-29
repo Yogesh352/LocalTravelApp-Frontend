@@ -33,29 +33,29 @@ import {
       }
     }, [location?.state?.id]);
   
-    const fetchHighlights = async (tourId) => {
-      try {
-        const response = await fetch(
-          `http://127.0.0.1:5000/api/tours/highlights/${tourId}`
-        );
-        const data = await response.json();
-        setHighlights(data);
-      } catch (error) {
-        console.log("Error fetching highlights:", error);
-      }
-    };
+    // const fetchHighlights = async (tourId) => {
+    //   try {
+    //     const response = await fetch(
+    //       `http://127.0.0.1:5000/api/tours/highlights/${tourId}`
+    //     );
+    //     const data = await response.json();
+    //     setHighlights(data);
+    //   } catch (error) {
+    //     console.log("Error fetching highlights:", error);
+    //   }
+    // };
   
-    const fetchItineraries = async (tourId) => {
-      try {
-        const response = await fetch(
-          `http://127.0.0.1:5000/api/tours/itineraries/${tourId}`
-        );
-        const data = await response.json();
-        setItineraries(data);
-      } catch (error) {
-        console.log("Error fetching itineraries:", error);
-      }
-    };
+    // const fetchItineraries = async (tourId) => {
+    //   try {
+    //     const response = await fetch(
+    //       `http://127.0.0.1:5000/api/tours/itineraries/${tourId}`
+    //     );
+    //     const data = await response.json();
+    //     setItineraries(data);
+    //   } catch (error) {
+    //     console.log("Error fetching itineraries:", error);
+    //   }
+    // };
   
   
     return (
