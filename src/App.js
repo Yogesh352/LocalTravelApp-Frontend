@@ -11,6 +11,7 @@ import ToursPage from "./pages/ToursPage";
 import VideoPage from "./pages/VideoPage";
 import TourPage from "./pages/TourPage";
 import { tourData } from "./data/TourData";
+import UploadPage from "./pages/UploadPage";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route className="h-full" path="/guides" element={<GuidesPage />} />
           <Route className="h-full" path="/guides/guide" element={<GuidePage />} />
           <Route className="h-full" path="/tours/tour" element={<TourPage />} />
+          <Route className="h-full" path="/uploadpage" element={<UploadPage />} />
 
           <Route
             className="h-full"
