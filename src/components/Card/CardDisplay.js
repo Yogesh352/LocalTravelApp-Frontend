@@ -6,7 +6,7 @@ const CardDisplay = ({ image, title, description, likes }) => {
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder className="h-[350px]">
       <Card.Section>
-        <Image src={image} height={160} alt="Norway" />
+        <Image src={image} height={160} alt={window.location.pathname} />
       </Card.Section>
 
       <Group position="apart" mt="md" mb="xs">

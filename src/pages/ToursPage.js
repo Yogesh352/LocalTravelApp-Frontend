@@ -1,5 +1,5 @@
 import { Grid, Text, Input, Box, Group } from "@mantine/core";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import CardDisplay from "../components/Card/CardDisplay";
 import { tourData } from "../data/TourData";
 import { SearchIcon } from "../icons";
@@ -7,7 +7,22 @@ import tourguide3 from "../images/tourguide3.jpg";
 import { useNavigate } from "react-router-dom";
 
 const ToursPage = () => {
-  let navigate = useNavigate();
+  const [tourData, setTourData] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:5001/api/tours');
+      const data = await response.json();
+      setTourData(data);
+    } catch (error) {
+      console.log('Error fetching tour data:', error);
+    }
+  };
 
   return (
     <>
@@ -53,7 +68,7 @@ const ToursPage = () => {
                 navigate("tour", {
                   state: {
                     name: tour.name,
-                    image: tour.image,
+                    link: tour.link,
                     description: tour.description,
                     rating: tour.rating,
                     keyHighlights: tour.keyHighlights,
@@ -64,9 +79,9 @@ const ToursPage = () => {
               }}
             >
               <CardDisplay
-                image={tour.image}
+                image={tour.link}
                 title={tour.name}
-                likes={tour.rating}
+                likes={tour.rating} 
                 description={tour.description}
               />
             </Grid.Col>
