@@ -16,7 +16,7 @@ const ToursPage = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:5001/api/tours');
+      const response = await fetch('http://127.0.0.1:5000/api/tours');
       const data = await response.json();
       setTourData(data);
     } catch (error) {
@@ -67,13 +67,14 @@ const ToursPage = () => {
               onClick={() => {
                 navigate("tour", {
                   state: {
+                    id: tour.id,
                     name: tour.name,
-                    link: tour.link,
+                    image: tour.link,
                     description: tour.description,
                     rating: tour.rating,
-                    keyHighlights: tour.keyHighlights,
-                    itenary: tour.itenary,
-                    reviews: tour.reviews,
+                    // keyHighlights: tour.highlight,
+                    // itenary: tour.itinerary,
+                    // reviews: tour.comment,
                   },
                 });
               }}

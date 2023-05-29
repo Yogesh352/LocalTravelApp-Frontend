@@ -50,7 +50,25 @@ const GuidesPage = () => {
         </Text>
         <Grid className="mt-4">
           {userData.map((user) => (
-            <Grid.Col span={4} className="cursor-pointer" key={user.id}>
+            <Grid.Col span={4} 
+            className="cursor-pointer" 
+            key={user.id}
+            onClick={() => {
+              navigate("guide", {
+                state: {
+                  id: user.id,
+                  email: user.email,
+                  name: user.name,
+                  image: user.link,
+                  languageSpoken: user.languageSpoken,
+                  selfIntro: user.selfIntro,
+                  // keyHighlights: tour.highlight,
+                  // itenary: tour.itinerary,
+                  // reviews: tour.comment,
+                },
+              });
+            }}
+            >
               <CardDisplay
                 image={user.link}
                 title={user.name}

@@ -6,6 +6,7 @@ import VideosPage from "./pages/VideosPage";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import GuidesPage from "./pages/GuidesPage";
+import GuidePage from "./pages/GuidePage";
 import ToursPage from "./pages/ToursPage";
 import VideoPage from "./pages/VideoPage";
 import TourPage from "./pages/TourPage";
@@ -22,6 +23,7 @@ function App() {
           <Route className="h-full" path="/login" element={<LoginPage />} />
           <Route className="h-full" path="/tours" element={<ToursPage />} />
           <Route className="h-full" path="/guides" element={<GuidesPage />} />
+          <Route className="h-full" path="/guides/guide" element={<GuidePage />} />
           <Route className="h-full" path="/tours/tour" element={<TourPage />} />
 
           <Route
