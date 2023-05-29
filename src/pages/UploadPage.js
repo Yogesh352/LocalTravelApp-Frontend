@@ -21,7 +21,6 @@ const UploadPage = () => {
     if (selectedFile) {
       const formData = new FormData();
       formData.append("file", selectedFile);
-
       fetch("http://localhost:5000/api/videos/upload", {
         method: "POST",
         body: formData,
@@ -41,7 +40,7 @@ const UploadPage = () => {
     }
   };
 
-  const [value, setValue] = useState("");
+  const [description, setDescription] = useState("");
 
   return (
     <>
@@ -51,8 +50,8 @@ const UploadPage = () => {
           <Stack>
             <input type="file" onChange={handleFileChange} className="mt-4" />
             <TextInput
-              value={value}
-              onChange={(event) => setValue(event.currentTarget.value)}
+              value={description}
+              onChange={(event) => setDescription(event.currentTarget.value)}
               label="Description"
               placeholder="Description"
             />
