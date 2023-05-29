@@ -1,5 +1,5 @@
 import { Box, Text, Stack, Group, Grid, Input } from "@mantine/core";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import CardDisplay from "../components/Card/CardDisplay";
 import Navbar from "../components/common/Navbar";
 import { SearchIcon } from "../icons";
@@ -15,6 +15,38 @@ import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
   let navigate = useNavigate();
+  const [videosData, setvideosData] = useState([]);
+  const [userData, setUserData] = useState([]);
+  const [tourData, setTourData] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/videos")
+      .then((response) => response.json())
+      .then((data) => setvideosData(data))
+      .then(console.log(console.log(videosData)))
+      .catch((error) => console.error(error));
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:5000/api/tours');
+      const data = await response.json();
+      setTourData(data);
+    } catch (error) {
+      console.log('Error fetching tour data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/users/admin")
+      .then((response) => response.json())
+      .then((data) => setUserData(data))
+      .catch((error) => console.error(error));
+  }, []);
 
   return (
     <>
@@ -82,38 +114,35 @@ const LandingPage = () => {
             </Text>
           </Group>
           <Grid className="mt-4">
-            <Grid.Col span={4}>
-              <CardDisplay
-                image={
-                  "https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
-                }
-                title={"Norway Fjord Adventure"}
-                likes={50}
-                description={
-                  "With Fjord Tours you can explore more of the magical fjord landscapes with tours and activities on and around the fjords of Norway"
-                }
-              />
-            </Grid.Col>
-            <Grid.Col span={4}>
-              <CardDisplay
-                image={discoverycenter}
-                title={"Singapore Discovery Center"}
-                likes={50}
-                description={
-                  "With Fjord Tours you can explore more of the magical fjord landscapes with tours and activities on and around the fjords of Norway"
-                }
-              />
-            </Grid.Col>
-            <Grid.Col span={4}>
-              <CardDisplay
-                image={thaitemple}
-                title={"Thai Temples"}
-                likes={100}
-                description={
-                  "With Fjord Tours you can explore more of the magical fjord landscapes with tours and activities on and around the fjords of Norway"
-                }
-              />
-            </Grid.Col>
+            {videosData.slice(0, 3).map((video) => (
+              <Grid.Col
+                span={4}
+                className="cursor-pointer"
+                onClick={() => {
+                  navigate("videos/video", {
+                    state: {
+                      title: video.name,
+                      image: video.p_link,
+                      likes: video.thumb_up,
+                      description: video.description,
+                      // profilePic: video.profilePic,
+                      // tourGuide: video.tourGuide,
+                      dateStamp: video.created_at,
+                      views: video.view_count,
+                      // comments: video.comments
+                      videoId: video.id,
+                    },
+                  });
+                }}
+              >
+                <CardDisplay
+                  image={video.p_link}
+                  title={video.name}
+                  likes={video.thumb_up}
+                  description={video.description}
+                />
+              </Grid.Col>
+            ))}
           </Grid>
         </Box>
         <Box className=" px-40 mt-10 ">
@@ -131,38 +160,33 @@ const LandingPage = () => {
             </Text>
           </Group>
           <Grid className="mt-4">
-            <Grid.Col span={4}>
-              <CardDisplay
-                image={
-                  "https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
-                }
-                title={"Norway Fjord Adventure"}
-                likes={50}
-                description={
-                  "With Fjord Tours you can explore more of the magical fjord landscapes with tours and activities on and around the fjords of Norway"
-                }
-              />
-            </Grid.Col>
-            <Grid.Col span={4}>
-              <CardDisplay
-                image={thaitemple}
-                title={"Thai Temples"}
-                likes={100}
-                description={
-                  "With Fjord Tours you can explore more of the magical fjord landscapes with tours and activities on and around the fjords of Norway"
-                }
-              />
-            </Grid.Col>
-            <Grid.Col span={4}>
-              <CardDisplay
-                image={discoverycenter}
-                title={"Singapore Discovery Center"}
-                likes={50}
-                description={
-                  "With Fjord Tours you can explore more of the magical fjord landscapes with tours and activities on and around the fjords of Norway"
-                }
-              />
-            </Grid.Col>
+            {tourData.slice(0, 3).map((tour) => (
+              <Grid.Col
+                span={4}
+                className="cursor-pointer"
+                onClick={() => {
+                  navigate("tours/tour", {
+                    state: {
+                      id: tour.id,
+                      name: tour.name,
+                      image: tour.link,
+                      description: tour.description,
+                      rating: tour.rating,
+                      // keyHighlights: tour.highlight,
+                      // itenary: tour.itinerary,
+                      // reviews: tour.comment,
+                    },
+                  });
+                }}
+              >
+                <CardDisplay
+                  image={tour.link}
+                  title={tour.name}
+                  likes={tour.rating}
+                  description={tour.description}
+                />
+              </Grid.Col>
+            ))}
           </Grid>
         </Box>
         <Box className=" px-40 pt-10">
@@ -180,47 +204,34 @@ const LandingPage = () => {
             </Text>
           </Group>
           <Grid className="mt-4">
-            <Grid.Col span={3}>
-              <CardDisplay
-                image={profile2}
-                title={"Bob"}
-                likes={50}
-                description={
-                  "With Fjord Tours you can explore more of the magical fjord landscapes with tours and activities on and around the fjords of Norway"
-                }
-              />
-            </Grid.Col>
-            <Grid.Col span={3}>
-              <CardDisplay
-                image={profile1}
-                title={"Tom"}
-                likes={100}
-                description={
-                  "With Fjord Tours you can explore more of the magical fjord landscapes with tours and activities on and around the fjords of Norway"
-                }
-              />
-            </Grid.Col>
-            <Grid.Col span={3}>
-              <CardDisplay
-                image={profile2}
-                title={"Sam"}
-                likes={50}
-                description={
-                  "With Fjord Tours you can explore more of the magical fjord landscapes with tours and activities on and around the fjords of Norway"
-                }
-              />
-            </Grid.Col>
-
-            <Grid.Col span={3}>
-              <CardDisplay
-                image={profile1}
-                title={"James"}
-                likes={50}
-                description={
-                  "With Fjord Tours you can explore more of the magical fjord landscapes with tours and activities on and around the fjords of Norway"
-                }
-              />
-            </Grid.Col>
+            {userData.slice(0, 3).map((user) => (
+              <Grid.Col span={4}
+                className="cursor-pointer"
+                key={user.id}
+                onClick={() => {
+                  navigate("guides/guide", {
+                    state: {
+                      id: user.id,
+                      email: user.email,
+                      name: user.name,
+                      image: user.link,
+                      languageSpoken: user.languageSpoken,
+                      selfIntro: user.selfIntro,
+                      // keyHighlights: tour.highlight,
+                      // itenary: tour.itinerary,
+                      // reviews: tour.comment,
+                    },
+                  });
+                }}
+              >
+                <CardDisplay
+                  image={user.link}
+                  title={user.name}
+                  likes={user.likes}
+                  description={user.selfIntro}
+                />
+              </Grid.Col>
+            ))}
           </Grid>
         </Box>
       </Stack>

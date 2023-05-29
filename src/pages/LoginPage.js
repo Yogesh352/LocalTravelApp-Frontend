@@ -29,6 +29,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const {login} = useAuth();
 
   const handleLogin = () => {
     // Create a JSON payload with email and password
@@ -52,14 +53,18 @@ const LoginPage = () => {
           // Login successful, navigate to the redirect page
           localStorage.setItem("user_id", data.user_id);
           localStorage.setItem("user_email", data.user_email);
+          localStorage.setItem("session_id", data.session_id);
+          console.log(data.user_id, data.user_email, data.session_id)
         } else {
           // Login failed, handle the error
           console.error("Login error:", data.error);
         }
+        navigate('/');
       })
       .catch((error) => {
         console.error("Login error:", error);
       });
+      login();
   };
 
   const [iceCream, setIceCream] = useState('Vanilla');

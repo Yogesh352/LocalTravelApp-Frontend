@@ -1,11 +1,14 @@
-import React from "react";
+import { React, useState } from "react";
 import { Button, Group, Text, UnstyledButton } from "@mantine/core";
 import { LogoIcon } from "../../icons";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Profile from "./Profile.js";
+import { useAuth } from '../../hooks/useAuth'
+import { LogOutButton } from '../LogOutButton'
 
 const Navbar = () => {
+  const { isLoading, user, isLoggedIn, userName } = useAuth()
   let navigate = useNavigate();
 
   return (
@@ -45,28 +48,41 @@ const Navbar = () => {
         >
           Tours
         </Button>
-        {/* <Button className="text-white font-semibold  text-lg cursor-pointer" >
-          <Link to="/profile">Profile</Link>
-        </Button> */}
+        {user !== null || localStorage.getItem('session_id') ? (
+          <Button className="text-white font-semibold text-lg cursor-pointer">
+            <Link to="/booking">Booking</Link>
+          </Button>
+        ) : null}
+
       </Group>
 
       <Group>
-        <Text
-          className="text-white cursor-pointer "
-          onClick={() => {
-            navigate("login");
-          }}
-        >
-          Log in
-        </Text>
-        <Button
-          className="bg-gray-100 text-black"
-          onClick={() => {
-            navigate("signup");
-          }}
-        >
-          Sign up
-        </Button>
+
+        {user != null || localStorage.getItem('session_id') ? (
+          <>
+            <Text className="text-white cursor-pointer">{user == null ? localStorage.getItem('user_email') : user.data['myinfo.name']}</Text>
+            <LogOutButton />
+          </>
+        ) : (
+          <>
+            <Text
+              className="text-white cursor-pointer"
+              onClick={() => {
+                navigate("login");
+              }}
+            >
+              Log in
+            </Text>
+            <Button
+              className="bg-gray-100 text-black"
+              onClick={() => {
+                navigate("signup");
+              }}
+            >
+              Sign up
+            </Button>
+          </>
+        )}
       </Group>
     </Group>
   );

@@ -6,7 +6,7 @@ import { VITE_BACKEND_URL } from '../config/constants';
 import { COLOURS } from '../theme/colours';
 
 export const LogOutButton = ({
-  buttonText = 'Log out and try again',
+  buttonText = 'Log out',
 }) => {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -17,7 +17,8 @@ export const LogOutButton = ({
       credentials: 'include',
     })
       .then(() => {
-        navigate('/');
+        localStorage.clear();
+        window.location.reload();
       })
       .catch((e) => {
         setIsLoading(false);

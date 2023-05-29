@@ -64,7 +64,7 @@ import {
       const bookingData = {
         pax: numOfPax,
         booking_date: selectedDate ? selectedDate.toISOString() : null,
-        user_id: 1, 
+        user_id: localStorage.getItem('user_id'), 
         tour_id: location?.state?.id
       };
 
