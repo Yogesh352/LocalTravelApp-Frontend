@@ -1,4 +1,4 @@
-import { Grid, Text, Input, Box, Stack, Group } from "@mantine/core";
+import { Grid, Text, Input, Button, Box, Stack, Group } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import CardDisplay from "../components/Card/CardDisplay";
@@ -6,6 +6,7 @@ import { videoData } from "../data/VideoData";
 import { SearchIcon } from "../icons";
 import tourguide1 from "../images/tourguide1.jpg";
 import { useNavigate } from "react-router-dom";
+import UploadPage from "./UploadPage";
 
 const VideosPage = () => {
   let navigate = useNavigate();
@@ -21,7 +22,7 @@ const VideosPage = () => {
 
   return (
     <>
-      <Grid className="xl:h-1/2  h-full bg-black px-40 pt-10 rounded-b-lg">
+      <Grid className="xl:h-1/2  bg-black px-40 pt-10 rounded-b-lg">
         <Grid.Col className="h-full" span={6}>
           <Text className="text-white font-bold 2xl:text-3xl md:text-lg w-[240px] 2xl:w-[400px]">
             Dicover places with the power of
@@ -53,6 +54,14 @@ const VideosPage = () => {
             <Text className="text-black font-bold text-2xl">
               TOP PICKS FOR <span className="text-gray-500">YOU</span>
             </Text>
+            <Button
+              className="bg-black text-white"
+              onClick={() => {
+                navigate("/uploadpage");
+              }}
+            >
+              Upload Video
+            </Button>
           </Group>
           <Grid className="mt-4">
             {videosData.map((video) => (
@@ -71,7 +80,7 @@ const VideosPage = () => {
                       // dateStamp: video.dateStamp,
                       // views: video.views,
                       // comments: video.comments
-                      videoId: video.id
+                      videoId: video.id,
                     },
                   });
                 }}
