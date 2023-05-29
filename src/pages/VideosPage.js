@@ -68,8 +68,8 @@ const VideosPage = () => {
                       description: video.description,
                       // profilePic: video.profilePic,
                       // tourGuide: video.tourGuide,
-                      // dateStamp: video.dateStamp,
-                      // views: video.views,
+                      dateStamp: video.created_at,
+                      views: video.view_count,
                       // comments: video.comments
                       videoId: video.id
                     },

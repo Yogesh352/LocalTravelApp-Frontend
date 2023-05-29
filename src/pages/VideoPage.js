@@ -107,7 +107,7 @@ const VideoPage = () => {
         <Box className="bg-gray-100 p-2 mt-6 rounded-md">
           <Group>
             <Text className="font-bold">{location.state.views} views</Text>
-            <Text>{location.state.dateStamp}</Text>
+            <Text>{new Date(location?.state?.dateStamp).toLocaleDateString()}</Text>
           </Group>
         </Box>
         <Box className="mt-6">
