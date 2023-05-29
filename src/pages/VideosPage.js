@@ -95,7 +95,7 @@ const VideosPage = () => {
             ))}
           </Grid>
         </Box>
-        <Box className=" px-40 pt-10 ">
+        {/* <Box className=" px-40 pt-10 ">
           <Group position="apart">
             <Text className="text-black font-bold text-2xl">
               SINCE <span className="text-gray-500">YOU</span> SEARCHED "BALI"
@@ -113,7 +113,7 @@ const VideosPage = () => {
               </Grid.Col>
             ))}
           </Grid>
-        </Box>
+        </Box> */}
       </Stack>
     </>
   );
