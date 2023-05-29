@@ -14,6 +14,7 @@ const VideoPage = () => {
   let navigate = useNavigate();
 
   useEffect(() => {
+    console.log(location.state.videoId)
     // Fetch and download the video using the provided ID or any relevant parameters
     fetchVideoFromAPI(location.state.videoId)
       .then((blob) => {

@@ -15,6 +15,7 @@ const VideosPage = () => {
     fetch("http://localhost:5000/api/videos")
       .then((response) => response.json())
       .then((data) => setvideosData(data))
+      .then(console.log(console.log(videosData)))
       .catch((error) => console.error(error));
   }, []);
 
