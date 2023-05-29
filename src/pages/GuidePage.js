@@ -47,16 +47,17 @@ import {
             <h2 className="hello"> Hi there, it's nice to meet you! </h2>
             <p>{location?.state?.selfIntro} </p>
             <div className="info-section">
-                <div className="info-item"> 
-                    <span className="icon"> 🌎 </span>
-                    <span className="info-text">Languages Spoken:</span>
-                    {location?.state?.languageSpoken.split(",").map((character, index) => (
-                      <div>
-                      <span key={index} className="info-text">{character} </span>
-                      </div>
-                    ))}
-                  </div>
+            <div className="info-item">
+              <p className="icon">🌎</p>
+              <p className="info-text">Languages Spoken:</p>
+              {location?.state?.languageSpoken.split(",").map((language, index) => (
+                <div key={index}>
+                  <p className="info-text ">{language.trim() } </p>
+                </div>
+              ))}
             </div>
+          </div>
+
         </div>
       </LocalizationProvider>
     );

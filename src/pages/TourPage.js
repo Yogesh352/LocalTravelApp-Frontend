@@ -25,6 +25,8 @@ import {
     const location = useLocation();
     const [highlights, setHighlights] = useState([]);
     const [itineraries, setItineraries] = useState([]);
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [numOfPax, setNumOfPax] = useState(null);
   
     useEffect(() => {
       if (location?.state?.id) {
@@ -56,8 +58,42 @@ import {
         console.log("Error fetching itineraries:", error);
       }
     };
-  
-  
+    
+    const handleBooking = (location) => {
+      // Prepare the booking data
+      const bookingData = {
+        pax: numOfPax,
+        booking_date: selectedDate ? selectedDate.toISOString() : null,
+        user_id: 1, 
+        tour_id: location?.state?.id
+      };
+
+      if (bookingData.booking_date) {
+        const dateWithoutOffset = new Date(bookingData.booking_date);
+        bookingData.booking_date = dateWithoutOffset.toISOString().split("T")[0];
+      }
+      
+      // Make the POST request
+      fetch('http://127.0.0.1:5000/api/bookings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(bookingData)
+      })
+        .then(response => response.json())
+        .then(data => {
+          // Handle the response from the server
+          console.log(data); // Replace with your desired logic
+          alert("Booking created successfully"); // Display the success message
+          window.location.reload(); // Refresh the page
+        })
+        .catch(error => {
+          // Handle any errors
+          console.error(error);
+        });
+    };
+    
     return (
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Stack className="h-full px-40 pt-10">
@@ -70,31 +106,39 @@ import {
               />
             </Grid.Col>
             <Grid.Col span={4} className="h-full w-full">
-              <Box className="border-2 border-gray-300 rounded-lg h-full w-full py-4 px-6">
-                <Text className="font-bold text-xl mb-4">Book Now!</Text>
-                <DatePicker label="Basic date picker" className="w-full" />
-                <FormControl fullWidth sx={{ mt: 2 }}>
-                  <InputLabel id="demo-simple-select-label">
-                    No. Of Pax
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    label="No. Of Pax"
-                  >
-                    <MenuItem value={10}>1</MenuItem>
-                    <MenuItem value={20}>2</MenuItem>
-                    <MenuItem value={30}>3</MenuItem>
-                  </Select>
-                </FormControl>
-                <Button
-                  className="bg-black text-white mt-4 w-[50%] mx-[25%]"
-                  size="md"
+            <Box className="border-2 border-gray-300 rounded-lg h-full w-full py-4 px-6">
+              <Text className="font-bold text-xl mb-4">Book Now!</Text>
+              <DatePicker
+                label="Select Date"
+                value={selectedDate}
+                onChange={(date) => setSelectedDate(date)}
+                className="w-full"
+              />
+              <FormControl fullWidth sx={{ mt: 2 }}>
+                <InputLabel id="demo-simple-select-label">No. Of Pax</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  label="No. Of Pax"
+                  value={numOfPax}
+                  onChange={(event) => setNumOfPax(event.target.value)}
                 >
-                  Book
-                </Button>
-              </Box>
-            </Grid.Col>
+                  <MenuItem value={1}>1</MenuItem>
+                  <MenuItem value={2}>2</MenuItem>
+                  <MenuItem value={3}>3</MenuItem>
+                </Select>
+              </FormControl>
+              <Button
+                className="bg-black text-white mt-4 w-[50%] mx-[25%]"
+                size="md"
+                onClick={() => handleBooking(location)}
+                disabled={selectedDate === null || numOfPax === null}
+              >
+                Book
+              </Button>
+
+            </Box>
+          </Grid.Col>
           </Grid>
           <Text className="text-3xl font-bold">
             {location?.state ? location?.state?.name : tourData[0].name}

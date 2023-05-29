@@ -27,11 +27,20 @@ function App() {
           <Route className="h-full" path="/tours" element={<ToursPage />} />
           <Route className="h-full" path="/guides" element={<GuidesPage />} />
           <Route className="h-full" path="profile" element={<Profile />} />
-          <Route className="h-full" path="/guides/guide" element={<GuidePage />} />
+          <Route
+            className="h-full"
+            path="/guides/guide"
+            element={<GuidePage />}
+          />
           <Route className="h-full" path="/tours/tour" element={<TourPage />} />
           <Route className="h-full" path="/uploadpage" element={<UploadPage />} />
           <Route className="h-full" path="/logged-in" element={<LoggedInPage />} />
-          
+        
+          <Route
+            className="h-full"
+            path="/uploadpage"
+            element={<UploadPage />}
+          />
 
           <Route
             className="h-full"
@@ -43,13 +52,19 @@ function App() {
             path="/videos/video/tours/tour"
             element={<Navigate replace to="/tours/tour" />}
           />
-           <Route
+          <Route
             path="/videos/uploadpage"
             element={<Navigate replace to="/uploadpage" />}
           />
+          <Route
+            path="/uploadpage/videos"
+            element={<Navigate replace to="/videos" />}
+          />
           <Route path="/login/redirect" element={<Navigate replace to="/" />} />
-          <Route path="/signup/redirect" element={<Navigate replace to="/" />} />
-
+          <Route
+            path="/signup/redirect"
+            element={<Navigate replace to="/" />}
+          />
         </Routes>
       </Layout>
     </BrowserRouter>
@@ -57,4 +72,3 @@ function App() {
 }
 
 export default App;
-
