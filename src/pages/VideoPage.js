@@ -5,6 +5,8 @@ import { tourData } from "../data/TourData";
 import { ThumbDownIcon, ThumbUpIcon } from "../icons";
 import video from "../images/sampleVideo.mp4";
 import { useNavigate } from "react-router-dom";
+import tourguide1 from "../images/tourguide1.jpg";
+import { videoData } from "../data/VideoData";
 
 const VideoPage = () => {
   const location = useLocation();
@@ -14,7 +16,7 @@ const VideoPage = () => {
   let navigate = useNavigate();
 
   useEffect(() => {
-    console.log(location.state.videoId)
+    console.log(location.state.videoId);
     // Fetch and download the video using the provided ID or any relevant parameters
     fetchVideoFromAPI(location.state.videoId)
       .then((blob) => {
@@ -30,12 +32,15 @@ const VideoPage = () => {
   const fetchVideoFromAPI = async (videoId) => {
     // Make an API request to fetch the video using the provided video ID
     // Replace 'API_ENDPOINT' with the actual API endpoint for fetching the video
-    const response = await fetch(`http://localhost:5000/api/videos/download/${videoId}`);
+    const response = await fetch(
+      `http://localhost:5000/api/videos/download/${videoId}`
+    );
     const blob = await response.blob();
     const videoUrl = URL.createObjectURL(blob);
     setVideoUrl(videoUrl);
   };
 
+  console.log(location.state.views);
   return (
     <>
       <Grid className="xl:h-2/3 h-full bg-black px-40 pt-10 rounded-b-lg">
@@ -95,34 +100,58 @@ const VideoPage = () => {
         <Group className="mt-4">
           <Avatar
             className="rounded-full"
-            src={location.state.profilePic}
+            src={
+              location.state.profilePic === undefined
+                ? tourguide1
+                : location.state.profilePic
+            }
             alt="it's me"
           />
           <Text className="font-semibold text-lg">
-            {location.state.tourGuide}
+            {location.state.tourGuide === undefined
+              ? "Tommy Bobby"
+              : location.state.tourGuide}
           </Text>
         </Group>
         <Text className="font-semibold text-lg">Video description</Text>
         <Text>{location.state.description}</Text>
         <Box className="bg-gray-100 p-2 mt-6 rounded-md">
           <Group>
-            <Text className="font-bold">{location.state.views} views</Text>
-            <Text>{location.state.dateStamp}</Text>
+            <Text className="font-bold">
+              {location.state.views === undefined ? 0 : location.state.views}{" "}
+              views
+            </Text>
+            <Text>
+              {location.state.dateStamp === undefined
+                ? "today"
+                : location.state.dateStamp}
+            </Text>
           </Group>
         </Box>
         <Box className="mt-6">
           <Text className="font-bold text-lg">Comments</Text>
 
-          {/* {location.state.comments.map((comment) => (
-            <Group className="mt-4">
-              <Avatar
-                src={comment.profilePic}
-                alt=""
-                className="rounded-full"
-              />
-              <Text>{comment.comment}</Text>
-            </Group>
-          ))} */}
+          {location.state.comments !== undefined
+            ? location.state.comments.map((comment) => (
+                <Group className="mt-4">
+                  <Avatar
+                    src={comment.profilePic}
+                    alt=""
+                    className="rounded-full"
+                  />
+                  <Text>{comment.comment}</Text>
+                </Group>
+              ))
+            : videoData[0].comments.map((comment) => (
+                <Group className="mt-4">
+                  <Avatar
+                    src={comment.profilePic}
+                    alt=""
+                    className="rounded-full"
+                  />
+                  <Text>{comment.comment}</Text>
+                </Group>
+              ))}
         </Box>
       </Box>
     </>
@@ -130,4 +159,3 @@ const VideoPage = () => {
 };
 
 export default VideoPage;
-

@@ -29,6 +29,7 @@ function App() {
           <Route className="h-full" path="/guides/guide" element={<GuidePage />} />
           <Route className="h-full" path="/tours/tour" element={<TourPage />} />
           <Route className="h-full" path="/uploadpage" element={<UploadPage />} />
+          
 
           <Route
             className="h-full"
@@ -39,6 +40,10 @@ function App() {
           <Route
             path="/videos/video/tours/tour"
             element={<Navigate replace to="/tours/tour" />}
+          />
+           <Route
+            path="/videos/uploadpage"
+            element={<Navigate replace to="/uploadpage" />}
           />
           <Route path="/login/redirect" element={<Navigate replace to="/" />} />
           <Route path="/signup/redirect" element={<Navigate replace to="/" />} />
