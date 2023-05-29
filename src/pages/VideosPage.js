@@ -65,7 +65,7 @@ const VideosPage = () => {
                       title: video.name,
                       image: video.p_link,
                       likes: video.thumb_up,
-                      // description: video.description,
+                      description: video.description,
                       // profilePic: video.profilePic,
                       // tourGuide: video.tourGuide,
                       // dateStamp: video.dateStamp,

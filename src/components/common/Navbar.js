@@ -45,9 +45,9 @@ const Navbar = () => {
         >
           Tours
         </Button>
-        <Button className="text-white font-semibold  text-lg cursor-pointer" >
+        {/* <Button className="text-white font-semibold  text-lg cursor-pointer" >
           <Link to="/profile">Profile</Link>
-        </Button>
+        </Button> */}
       </Group>
 
       <Group>

@@ -5,10 +5,6 @@ import { LogoIcon, LocationIcon } from "../../icons";
 
 export default function Profile() {
     return (
-        // <div class="Profile">
-        //     <img src={coverImg} style={styles.coverImage}/>
-        //     hi
-        // </div>
         <div className="profile">
             <div className="cover-image">
                 <img src={coverImg} alt="Cover" />

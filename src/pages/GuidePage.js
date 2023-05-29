@@ -20,6 +20,8 @@ import {
   import Select from "@mui/material/Select";
   import { ItenaryIcon } from "../icons";
   import { tourData } from "../data/TourData";
+  import coverImg from "../images/coverImage.jpg";
+
   
   const TourPage = () => {
     const location = useLocation();
@@ -28,108 +30,34 @@ import {
   
     useEffect(() => {
       if (location?.state?.id) {
-        // fetchHighlights(location.state.id);
-        // fetchItineraries(location.state.id);
       }
     }, [location?.state?.id]);
-  
-    // const fetchHighlights = async (tourId) => {
-    //   try {
-    //     const response = await fetch(
-    //       `http://127.0.0.1:5000/api/tours/highlights/${tourId}`
-    //     );
-    //     const data = await response.json();
-    //     setHighlights(data);
-    //   } catch (error) {
-    //     console.log("Error fetching highlights:", error);
-    //   }
-    // };
-  
-    // const fetchItineraries = async (tourId) => {
-    //   try {
-    //     const response = await fetch(
-    //       `http://127.0.0.1:5000/api/tours/itineraries/${tourId}`
-    //     );
-    //     const data = await response.json();
-    //     setItineraries(data);
-    //   } catch (error) {
-    //     console.log("Error fetching itineraries:", error);
-    //   }
-    // };
-  
+
   
     return (
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Stack className="h-full px-40 pt-10">
-          <Grid className="h-2/3">
-            <Grid.Col span={8} className="h-full w-full">
-              <img
-                src={location?.state ? location?.state?.image : tourData[0].image}
-                alt=""
-                className="h-full w-full rounded-lg"
-              />
-            </Grid.Col>
-            <Grid.Col span={4} className="h-full w-full">
-              <Box className="border-2 border-gray-300 rounded-lg h-full w-full py-4 px-6">
-                <Text className="font-bold text-xl mb-4">Book Now!</Text>
-                <DatePicker label="Basic date picker" className="w-full" />
-                <FormControl fullWidth sx={{ mt: 2 }}>
-                  <InputLabel id="demo-simple-select-label">
-                    No. Of Pax
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    label="No. Of Pax"
-                  >
-                    <MenuItem value={10}>1</MenuItem>
-                    <MenuItem value={20}>2</MenuItem>
-                    <MenuItem value={30}>3</MenuItem>
-                  </Select>
-                </FormControl>
-                <Button
-                  className="bg-black text-white mt-4 w-[50%] mx-[25%]"
-                  size="md"
-                >
-                  Book
-                </Button>
-              </Box>
-            </Grid.Col>
-          </Grid>
-          <Text className="text-3xl font-bold">
-            {location?.state ? location?.state?.name : tourData[0].name}
-          </Text>
-          <Text>
-            {location?.state ? location?.state?.description : tourData[0].description}
-          </Text>
-          <Text className="text-xl font-bold">Key Highlights</Text>
-          { <Grid>
-          {highlights.map((highlight) => (
-            <Grid.Col span={6}>
-              <Group>
-                <CheckIcon className="h-4 w-4 text-red-500" />
-                <Text>{highlight.highlight}</Text>
-              </Group>
-            </Grid.Col>
-          ))}
-          </Grid>}
-          <Text className="text-xl font-bold">Itenary</Text>
-          <Stack>
-          {itineraries.map((item) => (
-            <Grid className="w-[60%]">
-              <Grid.Col span={1}>
-                <ItenaryIcon className="text-lg mt-2 text-red-500" />
-              </Grid.Col>
-              <Grid.Col span={11}>
-                <Text>{item.itinerary}</Text>
-             </Grid.Col>
-            </Grid>
-          ))}
-        <Text></Text>
-        <Text></Text>
-        <Text></Text>
-          </Stack>
-        </Stack>
+        <div className="profile">
+        <div className="cover-image">
+                <img src={coverImg} alt="Cover" />
+            </div>
+            <div className="profile-picture">
+                <img src={location?.state?.image} alt="Profile" />
+            </div>
+            <h1 className="name"> {location?.state?.name} </h1>
+            <h2 className="hello"> Hi there, it's nice to meet you! </h2>
+            <p>{location?.state?.selfIntro} </p>
+            <div className="info-section">
+                <div className="info-item"> 
+                    <span className="icon"> 🌎 </span>
+                    <span className="info-text">Languages Spoken:</span>
+                    {location?.state?.languageSpoken.split(",").map((character, index) => (
+                      <div>
+                      <span key={index} className="info-text">{character} </span>
+                      </div>
+                    ))}
+                  </div>
+            </div>
+        </div>
       </LocalizationProvider>
     );
   };

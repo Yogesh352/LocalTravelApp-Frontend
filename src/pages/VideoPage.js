@@ -102,12 +102,13 @@ const VideoPage = () => {
             {location.state.tourGuide}
           </Text>
         </Group>
+        <Text className="font-semibold text-lg">Video description</Text>
+        <Text>{location.state.description}</Text>
         <Box className="bg-gray-100 p-2 mt-6 rounded-md">
           <Group>
             <Text className="font-bold">{location.state.views} views</Text>
             <Text>{location.state.dateStamp}</Text>
           </Group>
-          <Text>{location.state.description}</Text>
         </Box>
         <Box className="mt-6">
           <Text className="font-bold text-lg">Comments</Text>
