@@ -13,6 +13,7 @@ import TourPage from "./pages/TourPage";
 import { tourData } from "./data/TourData";
 import UploadPage from "./pages/UploadPage";
 import Profile from "./components/common/Profile";
+import { LoggedInPage } from "./pages/LoggedInPage";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route className="h-full" path="/guides/guide" element={<GuidePage />} />
           <Route className="h-full" path="/tours/tour" element={<TourPage />} />
           <Route className="h-full" path="/uploadpage" element={<UploadPage />} />
+          <Route className="h-full" path="/logged-in" element={<LoggedInPage />} />
           
 
           <Route
