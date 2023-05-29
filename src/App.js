@@ -14,7 +14,11 @@ import { tourData } from "./data/TourData";
 import UploadPage from "./pages/UploadPage";
 import Profile from "./components/common/Profile";
 
+
 function App() {
+  const userId = localStorage.getItem("user_id");
+  const userEmail = localStorage.getItem("user_email");
+  const isAuthenticated = userId && userEmail;
   return (
     <BrowserRouter className="h-full">
       <Layout className="h-full">
