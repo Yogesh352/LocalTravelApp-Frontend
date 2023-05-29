@@ -4,10 +4,12 @@ import { SearchIcon } from "../icons";
 import tourguide1 from "../images/tourguide1.jpg";
 import { guideData } from "../data/GuideData";
 import CardDisplay from "../components/Card/CardDisplay";
+import { useNavigate } from "react-router-dom";
 
 const GuidesPage = () => {
 
   const [userData, setUserData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:5000/api/users/admin")

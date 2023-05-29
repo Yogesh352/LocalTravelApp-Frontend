@@ -28,8 +28,8 @@ import {
   
     useEffect(() => {
       if (location?.state?.id) {
-        fetchHighlights(location.state.id);
-        fetchItineraries(location.state.id);
+        // fetchHighlights(location.state.id);
+        // fetchItineraries(location.state.id);
       }
     }, [location?.state?.id]);
   
