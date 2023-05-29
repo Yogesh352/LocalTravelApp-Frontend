@@ -21,6 +21,7 @@ const UploadPage = () => {
     if (selectedFile) {
       const formData = new FormData();
       formData.append("file", selectedFile);
+      formData.append("description", description);
       fetch("http://localhost:5000/api/videos/upload", {
         method: "POST",
         body: formData,
