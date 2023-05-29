@@ -9,14 +9,40 @@ import { useNavigate } from "react-router-dom";
 const VideoPage = () => {
   const location = useLocation();
   const [likes, setLikes] = useState(location.state.likes);
+  // const [videoBlob, setVideoBlob] = useState(null); // State to store video blob
+  const [videoUrl, setVideoUrl] = useState(null); // State to store video URL
   let navigate = useNavigate();
+
+  useEffect(() => {
+    // Fetch and download the video using the provided ID or any relevant parameters
+    fetchVideoFromAPI(location.state.videoId)
+      .then((blob) => {
+        setVideoBlob(blob);
+        initiateDownload(blob);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch video:", error);
+        // Handle error if necessary
+      });
+  }, [location.state.videoId]);
+
+  const fetchVideoFromAPI = async (videoId) => {
+    // Make an API request to fetch the video using the provided video ID
+    // Replace 'API_ENDPOINT' with the actual API endpoint for fetching the video
+    const response = await fetch(`http://localhost:5000/api/videos/download/${videoId}`);
+    const blob = await response.blob();
+    const videoUrl = URL.createObjectURL(blob);
+    setVideoUrl(videoUrl);
+  };
 
   return (
     <>
       <Grid className="xl:h-2/3 h-full bg-black px-40 pt-10 rounded-b-lg">
-        <video className="h-full w-full" controls>
-          <source src={video} type="video/mp4" />
-        </video>
+        {videoUrl && (
+          <video className="h-full w-full" controls>
+            <source src={videoUrl} type="video/mp4" />
+          </video>
+        )}
       </Grid>
       <Box className=" px-40 pt-10 ">
         <Group position="apart">
@@ -85,7 +111,7 @@ const VideoPage = () => {
         <Box className="mt-6">
           <Text className="font-bold text-lg">Comments</Text>
 
-          {location.state.comments.map((comment) => (
+          {/* {location.state.comments.map((comment) => (
             <Group className="mt-4">
               <Avatar
                 src={comment.profilePic}
@@ -94,7 +120,7 @@ const VideoPage = () => {
               />
               <Text>{comment.comment}</Text>
             </Group>
-          ))}
+          ))} */}
         </Box>
       </Box>
     </>

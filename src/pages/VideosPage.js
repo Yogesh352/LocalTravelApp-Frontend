@@ -1,5 +1,5 @@
 import { Grid, Text, Input, Box, Stack, Group } from "@mantine/core";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import CardDisplay from "../components/Card/CardDisplay";
 import { videoData } from "../data/VideoData";
@@ -9,6 +9,14 @@ import { useNavigate } from "react-router-dom";
 
 const VideosPage = () => {
   let navigate = useNavigate();
+  const [videosData, setvideosData] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/videos")
+      .then((response) => response.json())
+      .then((data) => setvideosData(data))
+      .catch((error) => console.error(error));
+  }, []);
 
   return (
     <>
@@ -46,30 +54,31 @@ const VideosPage = () => {
             </Text>
           </Group>
           <Grid className="mt-4">
-            {videoData.map((video) => (
+            {videosData.map((video) => (
               <Grid.Col
                 span={4}
                 className="cursor-pointer"
                 onClick={() => {
                   navigate("video", {
                     state: {
-                      title: video.title,
-                      image: video.image,
-                      likes: video.likes,
-                      description: video.description,
-                      profilePic: video.profilePic,
-                      tourGuide: video.tourGuide,
-                      dateStamp: video.dateStamp,
-                      views: video.views,
-                      comments: video.comments
+                      title: video.name,
+                      image: video.p_link,
+                      likes: video.thumb_up,
+                      // description: video.description,
+                      // profilePic: video.profilePic,
+                      // tourGuide: video.tourGuide,
+                      // dateStamp: video.dateStamp,
+                      // views: video.views,
+                      // comments: video.comments
+                      videoId: video.id
                     },
                   });
                 }}
               >
                 <CardDisplay
-                  image={video.image}
-                  title={video.title}
-                  likes={video.likes}
+                  image={video.p_link}
+                  title={video.name}
+                  likes={video.thumb_up}
                   description={video.description}
                 />
               </Grid.Col>
@@ -83,12 +92,12 @@ const VideosPage = () => {
             </Text>
           </Group>
           <Grid className="mt-4">
-            {videoData.map((video) => (
+            {videosData.map((video) => (
               <Grid.Col span={4}>
                 <CardDisplay
-                  image={video.image}
-                  title={video.title}
-                  likes={video.likes}
+                  image={video.p_link}
+                  title={video.name}
+                  likes={video.thumb_up}
                   description={video.description}
                 />
               </Grid.Col>

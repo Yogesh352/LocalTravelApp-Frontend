@@ -10,7 +10,7 @@ const GuidesPage = () => {
   const [userData, setUserData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5001/api/users/admin")
+    fetch("http://localhost:5000/api/users/admin")
       .then((response) => response.json())
       .then((data) => setUserData(data))
       .catch((error) => console.error(error));
