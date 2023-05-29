@@ -1,7 +1,9 @@
 import React from "react";
 import { Button, Group, Text, UnstyledButton } from "@mantine/core";
 import { LogoIcon } from "../../icons";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Profile from "./Profile.js";
 
 const Navbar = () => {
   let navigate = useNavigate();
@@ -42,6 +44,9 @@ const Navbar = () => {
           className="text-white font-semibold  text-lg cursor-pointer"
         >
           Tours
+        </Button>
+        <Button className="text-white font-semibold  text-lg cursor-pointer" >
+          <Link to="/profile">Profile</Link>
         </Button>
       </Group>
 
